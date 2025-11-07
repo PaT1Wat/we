@@ -78,6 +78,14 @@ def rate_book(user_id):
     if not book_id or not rating_value:
         return jsonify({'error': 'book_id and rating are required'}), 400
     
+    # Validate rating is between 1-5
+    try:
+        rating_value = int(rating_value)
+        if rating_value < 1 or rating_value > 5:
+            return jsonify({'error': 'rating must be between 1 and 5'}), 400
+    except (ValueError, TypeError):
+        return jsonify({'error': 'rating must be a valid integer'}), 400
+    
     user = User.query.get_or_404(user_id)
     book = Book.query.get_or_404(book_id)
     
@@ -94,10 +102,9 @@ def rate_book(user_id):
     # Update book's average rating
     book.update_average_rating()
     
-    # Retrain recommender with new data
-    if recommender is None:
-        recommender = HybridRecommender()
-    recommender.train()
+    # Note: Recommender retraining is deferred for performance.
+    # In production, consider batch retraining or incremental updates.
+    # For now, recommendations will be stale until next app restart.
     
     return jsonify({'message': 'Rating saved successfully'})
 
@@ -214,4 +221,6 @@ def init_db():
 
 if __name__ == '__main__':
     init_db()
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    # Use debug mode only in development, never in production
+    debug_mode = os.environ.get('FLASK_ENV') == 'development'
+    app.run(debug=debug_mode, host='0.0.0.0', port=5000)

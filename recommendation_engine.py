@@ -74,8 +74,9 @@ class HybridRecommender:
         book_ids = []
         
         for book in books:
-            # Combine text features
-            features = f"{book.genre} {book.author} {book.description or ''}"
+            # Combine text features, handling None values
+            description = book.description if book.description else ''
+            features = f"{book.genre} {book.author} {description}"
             book_features.append(features)
             book_ids.append(book.id)
         

@@ -54,6 +54,10 @@ pip install -r requirements.txt
 
 4. Run the application:
 ```bash
+# Development mode (with debug features)
+FLASK_ENV=development python app.py
+
+# Production mode (recommended)
 python app.py
 ```
 
@@ -61,6 +65,8 @@ python app.py
 ```
 http://localhost:5000
 ```
+
+**Security Note**: Never run the application with `FLASK_ENV=development` in production environments. Debug mode should only be used during local development.
 
 ## Usage / การใช้งาน
 

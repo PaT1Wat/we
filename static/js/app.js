@@ -195,7 +195,7 @@ async function showBookDetails(bookId) {
 
 // Utility function to escape HTML
 function escapeHtml(text) {
-    if (text == null || text === undefined) {
+    if (text == null) {
         return '';
     }
     const div = document.createElement('div');

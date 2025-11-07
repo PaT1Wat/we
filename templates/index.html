@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Recommendation System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 Book Recommendation System</h1>
+            <p class="subtitle">Discover your next favorite book with our hybrid recommendation engine</p>
+        </header>
+
+        <div class="user-selector">
+            <label for="user-select">Select User:</label>
+            <select id="user-select">
+                <option value="">-- Select a user --</option>
+            </select>
+            <button id="get-recommendations" disabled>Get Recommendations</button>
+        </div>
+
+        <div id="recommendations-section" class="hidden">
+            <h2>Personalized Recommendations</h2>
+            <p class="info">Based on hybrid collaborative and content-based filtering</p>
+            <div id="recommendations" class="book-grid"></div>
+        </div>
+
+        <div id="all-books-section">
+            <h2>All Books</h2>
+            <div id="all-books" class="book-grid"></div>
+        </div>
+
+        <div id="similar-books-section" class="hidden">
+            <h2>Similar Books</h2>
+            <div id="similar-books" class="book-grid"></div>
+        </div>
+    </div>
+
+    <!-- Book Details Modal -->
+    <div id="book-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="book-details"></div>
+            <div id="similar-section" class="hidden">
+                <h3>Similar Books</h3>
+                <div id="modal-similar-books" class="book-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
